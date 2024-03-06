@@ -169,6 +169,6 @@ for j in random_tasks:
         print("Invalid task")
 
 
-print("Average time for Sort: ",lis_times.average())
-print("Average time for search: ",arr_times.average())
+print("Average time for Sort: ",lis_times)
+print("Average time for search: ",arr_times)
 #4.
