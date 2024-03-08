@@ -56,22 +56,6 @@ class PriorityQueue:
         merged.extend(left_half if left_half else right_half)
         return merged
 
-'''
-prior = PriorityQueue(5)
-prior.enqueue(1, 3)
-prior.enqueue(2, 1)
-prior.enqueue(3, 2)
-prior.enqueue(4, 5)
-prior.enqueue(5, 4)
-print(prior.queue)
-print(prior.dequeue())
-print(prior.dequeue())
-print(prior.dequeue())
-print(prior.dequeue())
-print(prior.dequeue())
-print(prior.dequeue())
-'''
-
 #2.
 class PriorityQueue2:
     def __init__(self, capacity):
@@ -152,13 +136,18 @@ def generate_random_tasks():
 
     return tasks
 
+#4.
+
 sort = PriorityQueue(700)
 search = PriorityQueue2(700)
 lis_times = []
 arr_times = []
 
 random_tasks = generate_random_tasks()
+i = 0
 for j in random_tasks:
+    i += 1
+    print(i)
     if j == "enqueue":
         lis_times.append(timeit.timeit(lambda: sort.enqueue(2, random.randint(0,100)),number=100))
         arr_times.append(timeit.timeit(lambda: search.enqueue(2, random.randint(0,100)),number=100))
@@ -171,4 +160,14 @@ for j in random_tasks:
 
 print("Average time for Sort: ",lis_times)
 print("Average time for search: ",arr_times)
-#4.
+
+print("Average time for Sort: ", sum(lis_times) / len(lis_times))
+print("Average time for search: ", sum(arr_times) / len(arr_times))
+
+#5.
+'''
+The PriorityQueue2 class is faster than the PriorityQueue class. This is because the PriorityQueue2 class uses linear search
+to find the right position to insert the item, which has an average complexity of O(n).While  PriorityQueue class uses merge_sort 
+method which has a time complexity of O(nlogn). While PriorityQueue could be faster for smaller Priority Queue sizes, because we
+tested the performance of the two classes with a PriorityQueue size of 700, the PriorityQueue2 class was faster.
+'''

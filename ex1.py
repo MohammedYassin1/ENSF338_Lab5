@@ -1,5 +1,5 @@
 import sys
-
+#2. 
 class MyArrayStack:
     def __init__(self):
         self._storage = []
@@ -17,26 +17,25 @@ class MyArrayStack:
         else:
             return self._storage[-1]
 
+#3.
 def evaluate(expression):
     stack = MyArrayStack()
     operators = {
-        '+': lambda y, x: x + y,
-        '-': lambda y, x: x - y,
-        '*': lambda y, x: x * y,
-        '/': lambda y, x: x / y
+        '+': lambda x, y: x + y,
+        '-': lambda x, y: x - y,
+        '*': lambda x, y: x * y,
+        '/': lambda x, y: x / y
     }
 
     for char in reversed(expression):
         if char in operators:
-            stack.push(operators[char](stack.pop(), stack.pop()))
+            intrermediate = operators[char](stack.pop(), stack.pop())
+            stack.push(intrermediate)
         elif char not in '() ':
             stack.push(int(char))
 
     return stack.pop()
 
+#1.
 expression = sys.argv[1]
 print(evaluate(expression))
-
-
-
-    

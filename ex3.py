@@ -6,13 +6,13 @@ class MyArrayStack:
         self._storage = []
 
     def push(self, value):
-        self._storage.append(value)
+        self._storage.append(value)  # Append element at the tail
 
     def pop(self):
         if not self._storage:
             return None
         else:
-            return self._storage.pop(-1)  # Changed to pop the last element
+            return self._storage.pop()  # Remove element from the tail
 
     def peek(self):
         if not self._storage:
@@ -89,25 +89,43 @@ lis = MyListStack()
 arr = MyArrayStack()
 lis_times = []
 arr_times = []
-for i in range(100):
-    random_tasks = generate_random_tasks()
-    for j in random_tasks:
-        if j == "push":
-            lis_times.append(timeit.timeit(lambda: lis.push(2),number=1))
-            arr_times.append(timeit.timeit(lambda: arr.push(2),number=1))
-        elif j == "pop":
-            lis_times.append(timeit.timeit(lambda: lis.pop(),number=1))
-            arr_times.append(timeit.timeit(lambda: arr.pop(),number=1))
 
-def test_stack_performance():
-    for _ in range(100):
-        tasks = generate_random_tasks()
-        stack = MyListStack()
-        for task in tasks:
-            if task == 'push':
-                stack.push(1)
-            elif task == 'pop':
-                stack.pop()
+random_tasks = generate_random_tasks()
+i = 0
+for j in random_tasks:
+    i += 1
+    print(i)
+    if j == "push":
+        lis_times.append(timeit.timeit(lambda: lis.push(2),number=100))
+        arr_times.append(timeit.timeit(lambda: arr.push(2),number=100))
+    elif j == "pop":
+        lis_times.append(timeit.timeit(lambda: lis.pop(),number=100))
+        arr_times.append(timeit.timeit(lambda: arr.pop(),number=100))
+    else:
+        print("error")
+
+import matplotlib.pyplot as plt
+
+# Plotting the distribution of times
+plt.hist(lis_times, label='MyListStack', edgecolor='b', linewidth=1.5, width=0.00001, fill=False)
+plt.hist(arr_times,  label='MyArrayStack', edgecolor='r', linewidth=1.5, width=0.00001, fill=False)
+plt.xlim(0, 0.0001)  # Set the x-axis limits to zoom in
+plt.xlabel('Time')
+plt.ylabel('Frequency')
+plt.title('Distribution of Times')
+plt.legend()
+plt.show()
+
+#5.
+'''
+The graph shows how array implementation is faster than linked list implementation. This is shown by the higher frequency 
+of the array implementation times in lower times. The array implementation is faster because it has an average constant time 
+complexity, while the linked list implementation has an average linear time complexity because it lacks a tail pointer. This is
+clearly shown by the graph as the array implementation has a higher frequency in lower times, while the linked list implementation
+has a higher frequency in higher times.
+
+'''
+
 
 
 
